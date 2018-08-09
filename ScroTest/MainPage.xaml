@@ -75,7 +75,7 @@
         </local:MyListView>-->
         <ScrollViewer  >
             <Interactivity:Interaction.Behaviors>
-                <local:HtmlTextBehavior  PointOffSetY="{Binding PointY,Mode=TwoWay}"/>
+                <local:SyncBehavior  PointOffSetY="{Binding PointY,Mode=TwoWay}"/>
             </Interactivity:Interaction.Behaviors>
             <StackPanel >
                 <Rectangle Height="500" Fill="Red"/>
@@ -85,7 +85,7 @@
         </ScrollViewer>
         <ScrollViewer Grid.Column="1" >
             <Interactivity:Interaction.Behaviors>
-                <local:HtmlTextBehavior  PointOffSetY="{Binding PointY,Mode=TwoWay}"/>
+                <local:SyncBehavior  PointOffSetY="{Binding PointY,Mode=TwoWay}"/>
             </Interactivity:Interaction.Behaviors>
             <StackPanel >
                 <Rectangle Height="500" Fill="Red"/>

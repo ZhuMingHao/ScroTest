@@ -49,7 +49,7 @@ namespace ScroTest
         }
     }
 
-    public class HtmlTextBehavior : Behavior<ScrollViewer>
+    public class SyncBehavior : Behavior<ScrollViewer>
     {
         private static ScrollViewer _scrollViewer;
         protected override void OnAttached()
@@ -68,16 +68,16 @@ namespace ScroTest
 
         private void OnAssociatedObjectLayoutUpdated(object sender, object o)
         {
-            UpdateText();
+            SyncPointOffSetY();
         }
 
         private void OnAssociatedObjectLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            UpdateText();
+            SyncPointOffSetY();
             AssociatedObject.Loaded -= OnAssociatedObjectLoaded;
         }
 
-        private void UpdateText()
+        private void SyncPointOffSetY()
         {
             if (AssociatedObject == null) return;
 
@@ -96,14 +96,14 @@ namespace ScroTest
             get { return (double)GetValue(PointOffSetYProperty); }
             set { SetValue(PointOffSetYProperty, value); }
         }
-     
+
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PointOffSetYProperty =
-            DependencyProperty.Register("PointOffSetY", typeof(double), typeof(HtmlTextBehavior), new PropertyMetadata(0.0, CallBack));
+            DependencyProperty.Register("PointOffSetY", typeof(double), typeof(SyncBehavior), new PropertyMetadata(0.0, CallBack));
 
         private static void CallBack(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var current = d as HtmlTextBehavior;
+            var current = d as SyncBehavior;
             var temScrollViewer = current.AssociatedObject;
             if (e.NewValue != e.OldValue & (double)e.NewValue != 0)
             {
@@ -131,7 +131,6 @@ namespace ScroTest
 
         private void _scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            var s = default(string);
 
             var MyScrollViewer = sender as ScrollViewer;
             this.SetValue(PointOffSetYProperty, MyScrollViewer.VerticalOffset);
